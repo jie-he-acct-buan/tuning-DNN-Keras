@@ -1,10 +1,3 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Thu Mar 28 19:30:21 2019
-
-@author: Jie
-"""
-
 import numpy as np
 import pandas as pd
 import sklearn
@@ -46,22 +39,15 @@ y_test = np_utils.to_categorical(y_test, num_classes)
 
 ###############################################################################
 # Apply K-means, with and without PCA, to do clusters.
-# To demonstrate your results, visualize sampled images within each cluster. 
-# This function might be useful for your visualization
+
 def draw_digit(data, row, col, n):
     plt.subplot(row, col, n)    
     plt.imshow(data)
     plt.gray()
 
-
-# If it takes too long to run the clustering, you can use the sampled data to do the clustering.
-X_train_sample = X_train[0:1000,:]
-y_train_sample = y_train[0:1000,:]
-X_train_image_sample = X_train_image[0:1000,:]
-
 image_shape = X_train_image_sample[0].shape
 ###############################################################################
-# K-Means based on raw features (20 points)
+# K-Means based on raw features
 kmeans = sklearn.cluster.KMeans(n_clusters = num_classes)
 kmeans.fit(X_train)
 X_train_labels = kmeans.labels_
@@ -83,7 +69,7 @@ for i in range(10):
     print('\n\n')
   
 ###############################################################################
-# K-Means based on PCA features (20 points)
+# K-Means based on PCA features 
 pca_try = sklearn.decomposition.PCA()
 pca_try.fit(X_train)
 cumsum = np.cumsum(pca_try.explained_variance_ratio_)
@@ -124,20 +110,15 @@ Train a two-layer neural network:
     loss function: categorical_crossentropy
     optimizer: SGD
     metrics: accuracy
-    (Regarding parameters that are not specified above, use the default values)
-    
-You need to use grid search to tune the dropout rate and the learning rate in SGD optimizer.
 
-Hint: to define the estimator required in Grid Search, you might need to use KerasClassifier 
+    
+Uuse grid search to tune the dropout rate and the learning rate in SGD optimizer.
+
+Use KerasClassifier 
         (https://keras.io/scikit-learn-api/)
 
 References: https://chrisalbon.com/deep_learning/keras/tuning_neural_network_hyperparameters/ 
 
-Delivery:
-    Model performance
-    Optimal model parameters
-
-Total points: 30 points
 '''
 
 
@@ -177,14 +158,12 @@ for mean, stdev, param in zip(means, stds, params):
 
 ###############################################################################
 '''
-Task: Explore the correlation between model preformance and the number of units
+Explore the correlation between model preformance and the number of units
 
-Delivery: Plot a graph where 
+Plot a graph where 
     the x-axis is the number of hidden units, 
     and the y-axis is the model performance (two lines: one with test loss, and one with test accuracy)
     
-    
-Total points: 30 points
 '''
 from keras.callbacks import History
 history = History()
